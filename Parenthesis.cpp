@@ -5,7 +5,9 @@
 #include <string>
 using namespace std;
 
-int parenthesis(string par, int begin);
+void parenthesis(string par, int begin);
+
+int cnt = 0;
 
 int main() {
 	ifstream in;
@@ -20,23 +22,29 @@ int main() {
 
 		in >> par;
 
-		if (parenthesis(par, 0) != 0)
+		parenthesis(par, 0);
+
+		if (cnt != 0)
 			cout << "NO" << endl;
 		else
 			cout << "YES" << endl;
+
+		cnt = 0;
 	}
 }
 
-int parenthesis(string par, int begin) {
-	int cnt = 0;
-
-	if (begin < par.size() - 1)
-		cnt = parenthesis(par, begin + 1);
-
+void parenthesis(string par, int begin) {
 	if (par[begin] == '(')
-		return ++cnt;
-	else if (par[begin] == ')')
-		return --cnt;
+		cnt++;
+	else if (par[begin] == ')') {
+		cnt--;
 
-	return cnt;
+		if (cnt < 0)
+			return;
+	}
+
+	if (par.size() == begin)
+		return;
+	else
+		parenthesis(par, begin + 1);
 }
