@@ -1,0 +1,4 @@
+﻿  PythagoreanExpectation.cpp
+d:\github\algorithmhomework\algorithmhomework\algorithmhomework\pythagoreanexpectation.cpp(43): warning C4244: '=' : 'double'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\github\algorithmhomework\algorithmhomework\algorithmhomework\pythagoreanexpectation.cpp(45): warning C4244: '=' : 'double'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  AlgorithmHomeWork.vcxproj -> D:\GitHub\AlgorithmHomeWork\AlgorithmHomeWork\Debug\AlgorithmHomeWork.exe
