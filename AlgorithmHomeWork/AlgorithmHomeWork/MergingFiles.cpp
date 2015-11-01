@@ -1,8 +1,11 @@
-#define _CRT_SECURE_NO_WARNINGS
-
+//컴퓨터공학부 3학년 20113259 
+//알고리즘 과제 - MergingFiles 
 #include <iostream>
+#include <fstream>
 #include <string.h>
 using namespace std;
+
+#define MIN(x, y) (x > y) ? (y) : (x)
 
 int mergeMatrix[501][501] = { 0 };
 int file[501] = { 0 };
@@ -10,8 +13,7 @@ int sum[501] = { 0 };
 
 int main() {
 	int testCase;
-
-	freopen("input.txt", "r", stdin);
+	ifstream cin("input.txt");
 
 	cin >> testCase;
 
@@ -20,34 +22,23 @@ int main() {
 
 		cin >> size;
 
-		memset(mergeMatrix, 0, sizeof(int) * 501 * 501);
 		memset(file, 0, sizeof(int) * 501);
 		memset(sum, 0, sizeof(int) * 501);
 
-		for (int i = 0; i < size; i++)
+		for (int i = 0; i < size; i++) {
 			cin >> file[i];
-		for (int i = 0; i < size; i++)
-			sum[i] = sum[i - 1] + file[i];
+			sum[i + 1] = sum[i] + file[i];
+		}
 
-		int min = 0;
-		for (int x = 1; x <= size; x++) {
-			for (int y = 0; y <= size - x; y++) {
+		for (int x = 1; x < size; x++) {
+			for (int y = 1; y <= size - x; y++) {
 				int j = y + x;
-				min = mergeMatrix[y][y] + mergeMatrix[y + 1][j] + sum[y] - sum[j];
-
-				for (int k = y; k < j; k++) {
-					if (min < mergeMatrix[y][k] + mergeMatrix[k + 1][j] + sum[k] - sum[j])
-						min = mergeMatrix[y][k] + mergeMatrix[k + 1][j] + sum[k] - sum[j];
-				}
-				mergeMatrix[y][j] = min;
+				mergeMatrix[y][j] = 2147483647;
+				for (int k = y; k < j; k++)
+					mergeMatrix[y][j] = MIN(mergeMatrix[y][j], mergeMatrix[y][k] + mergeMatrix[k + 1][j] + sum[j] - sum[y - 1]);
 			}
 		}
-		cout << "MIN : " << min << endl;
-		for (int x = 0; x <= size; x++) {
-			for (int y = 0; y <= size; y++)
-				cout << mergeMatrix[x][y] << " ";
-			cout << endl;
-		}
+		cout << mergeMatrix[1][size] << endl;
 	}
 	return 0;
 }
